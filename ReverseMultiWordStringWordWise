@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+void wordWiseReverse(char s[], int start, int end){
+        int i = start, j = end;
+        while(i < j){
+                char temp = s[i];
+                s[i] = s[j];
+                s[j] = temp;
+                i++;
+                j--;
+        }
+}
+void reverseEntireString(char s[]){
+        //Reverse entire string.
+        int i = 0, j = strlen(s) - 1;
+        while(i < j){
+                char temp = s[i];
+                s[i] = s[j];
+                s[j] = temp;
+                i++;
+                j--;
+        }
+
+        //Reverse Word-Wise.
+        int start = 0, end = 0;
+        for(int i = 0; s[i] != '\0'; i++){
+                if(s[i] == ' '){
+                        end = i - 1;
+                        wordWiseReverse(s, start, end);
+                        start = i + 1;
+                        end = i + 1;
+
+                }
+        }
+        end = i -1;
+        wordWiseReverse(s, start, end);
+
+
+}
+int main() {
+        char s[1000];
+        cout << "Enter the string: " << endl;
+        cin.getline(s, 1000);
+        reverseEntireString(s);
+        cout << s << endl;
+}
